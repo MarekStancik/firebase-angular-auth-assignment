@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AppComponent {
   title = 'firebase-first-assignment';
 
-  items: Observable<any[]>;
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('items').valueChanges();
+  constructor(public auth: AuthService) {
+
+  }
+
+  printUser(event) {
+    console.log(event);
+  }
+
+  printError(event) {
+      console.error(event);
   }
 }

@@ -1,5 +1,22 @@
-<ul>
-  <li *ngFor="let item of items | async">
-    {{ item.name }}
-  </li>
-</ul>
+<app-navbar></app-navbar>
+<!--
+<a [routerLink]="['/details']" routerLinkActive="router-link-active" >Details</a>
+
+<div *ngIf="auth.user$ | async as user; else login">
+  <pre>
+    {{user |json }}
+  </pre>
+  <hr>
+  <button (click)="auth.signOut()" mat-button>Sign Out</button>
+</div>
+
+<ng-template #login>
+  <button (click)="auth.googleSignin()" mat-raised-button color="primary">Login with Google</button>
+</ng-template>
+
+
+<ngx-auth-firebaseui (onSuccess)="printUser($event)"
+                     (onError)="printError()">
+</ngx-auth-firebaseui>-->
+
+<router-outlet></router-outlet>

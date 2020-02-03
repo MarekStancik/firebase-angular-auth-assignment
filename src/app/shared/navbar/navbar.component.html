@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <span [routerLink]="['']" routerLinkActive="router-link-active" style="cursor: pointer;">App Of Gods</span>
+    <span style="flex: 1 1 auto;"></span>
+
+    <div *ngIf="auth.user$ | async as user; else login">
+        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" mat-button>My Profile</a>
+        <button mat-button (click)="auth.signOut()">Sign Out</button>
+    </div>
+
+    <ng-template #login>
+        <a (click)="auth.googleSignin()" mat-button>Register/Login</a>
+    </ng-template>
+</mat-toolbar>

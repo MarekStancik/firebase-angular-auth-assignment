@@ -3,11 +3,19 @@
     <span style="flex: 1 1 auto;"></span>
 
     <div *ngIf="auth.user$ | async as user; else login">
-        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" mat-button>My Profile</a>
+        <a [routerLink]="['user/profile']" routerLinkActive="router-link-active" mat-button>My Profile</a>
         <button mat-button (click)="auth.signOut()">Sign Out</button>
     </div>
 
     <ng-template #login>
-        <a (click)="auth.googleSignin()" mat-button>Register/Login</a>
+        <a [routerLink]="['user/register']" routerLinkActive="router-link-active"  mat-button>Register</a>
+        <mat-form-field>    
+            <mat-label>Login</mat-label>
+            <mat-select [(value)]="selected">
+                <mat-option value="option2">Google Signin</mat-option>
+                <mat-option value="option3">Email + Password</mat-option>
+            </mat-select>
+        </mat-form-field>
+       <!-- <a (click)="auth.googleSignin()" mat-button>Login</a>-->
     </ng-template>
 </mat-toolbar>

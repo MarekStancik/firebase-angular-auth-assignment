@@ -9,19 +9,16 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { fireconfig } from 'src/environments/firebase';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatToolbarModule, MatCardModule} from '@angular/material';
+import { MatButtonModule, MatToolbarModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
-import { UserDetailsComponent } from './user/user-details/user-details.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeViewComponent } from './home/home-view/home-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserDetailsComponent,
-    UserProfileComponent,
     NavbarComponent,
     HomeViewComponent
   ],
@@ -33,10 +30,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AngularFirestoreModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    MatButtonModule,
     MatToolbarModule,
-    MatCardModule,
     NgxAuthFirebaseUIModule.forRoot(fireconfig),
+    SharedModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

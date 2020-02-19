@@ -9,13 +9,6 @@
 
     <ng-template #login>
         <a [routerLink]="['user/register']" routerLinkActive="router-link-active"  mat-button>Register</a>
-        <mat-form-field>    
-            <mat-label>Login</mat-label>
-            <mat-select [(value)]="selected">
-                <mat-option value="option2">Google Signin</mat-option>
-                <mat-option value="option3">Email + Password</mat-option>
-            </mat-select>
-        </mat-form-field>
-       <!-- <a (click)="auth.googleSignin()" mat-button>Login</a>-->
+        <a (click)="showLoginDialog()" mat-button>Login</a>
     </ng-template>
 </mat-toolbar>

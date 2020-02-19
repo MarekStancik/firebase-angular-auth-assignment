@@ -15,12 +15,16 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeViewComponent } from './home/home-view/home-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
+import { AuthService } from './services/auth.service';
+import { UserService } from './users/user.service';
+import { DialogUserLoginComponent } from './users/dialog-user-login/dialog-user-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeViewComponent
+    HomeViewComponent,
+    DialogUserLoginComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -34,7 +38,10 @@ import { SharedModule } from './shared/shared.module';
     NgxAuthFirebaseUIModule.forRoot(fireconfig),
     SharedModule.forRoot()
   ],
-  providers: [],
+  entryComponents: [
+    DialogUserLoginComponent
+  ],
+  providers: [AuthService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

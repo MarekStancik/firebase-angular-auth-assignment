@@ -8,7 +8,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class UserService {
 
-  constructor(private _auth: AuthService,private afs: AngularFirestore) { }
+  constructor(private _auth: AuthService,private afs: AngularFirestore) { 
+  }
 
   createUser(user: UserModel,pass: string):Promise<UserModel>{
     return new Promise((resolve,reject) => {

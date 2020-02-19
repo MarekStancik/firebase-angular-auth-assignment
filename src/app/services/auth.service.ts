@@ -15,20 +15,22 @@ export class AuthService {
 
   user$: Observable<UserModel>;
 
+  user: UserModel;
+
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
-  ) { 
+    private afs: AngularFirestore) { 
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user){
-          return this.afs.doc<UserModel>(`users/${user.uid}`).valueChanges();
+          return this.afs.collection('users').doc(user.uid).valueChanges();
         }else{
           return of(null);
         }
       })
     );
+
+    this.user$.subscribe(data => this.user = data);
   }
 
   async googleSignin(){
@@ -37,9 +39,12 @@ export class AuthService {
     return this.updateUserData(credentials.user);
   }
 
-  async signOut(){
-    await this.afAuth.auth.signOut();
-    return this.router.navigate(['/']);
+  signIn(email: string, pass: string):Promise<auth.UserCredential>{
+    return this.afAuth.auth.signInWithEmailAndPassword(email,pass);
+  }
+
+  signOut():Promise<void>{
+    return this.afAuth.auth.signOut();
   }
 
   createUser(email: string,pass: string):Promise<auth.UserCredential>{

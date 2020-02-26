@@ -22,3 +22,9 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.card-header-image{
+    max-width: 50px;
+    max-height: 50px;
+    background-size: cover;
+}

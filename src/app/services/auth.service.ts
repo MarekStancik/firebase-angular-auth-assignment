@@ -3,10 +3,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators'
 import { UserModel } from '../users/user-model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
-import { resolve } from 'url';
 import * as firebase from 'firebase';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../user-model';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
@@ -14,10 +14,13 @@ export class UserEditComponent implements OnInit {
   user: UserModel;
 
   userForm = new FormGroup({
-    password: new FormControl(''),
-    displayName: new FormControl(''),
+    displayName: new FormControl('',[
+      Validators.required,
+      Validators.minLength(4)
+    ]),
     photoURL: new FormControl(''),
-    age: new FormControl('')
+    age: new FormControl(''),
+    summary: new FormControl('')
   });
 
   constructor(public auth: AuthService,private _userService: UserService) { 
@@ -29,32 +32,53 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
   }
 
+  getNameError():string{
+    let control = this.userForm.get('displayName');
+    if (control.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return control.hasError('minlength') ? 'Minimum 4 characters' : '';
+  }
+
   setUpUser(data: UserModel){
-    this.user = data;
+    if(data != null){
+      this.user = data;
 
-    let val = this.userForm.value;
-    val.displayName = data.displayName;
-    val.photoURL = data.photoURL;
-    val.age = data.age;
-
-    this.userForm.patchValue(val);
+      let val = this.userForm.value;
+      val.displayName = data.displayName;
+      val.photoURL = data.photoURL;
+      val.age = data.age;
+      val.summary = data.summary;
+  
+      this.userForm.patchValue(val);
+    }
   }
 
   save(){
 
-    let val = this.userForm.value;
+    let val = this.userForm.value;   
 
     let updatedUser: UserModel = {
       email: this.user.email,
       uid: this.user.uid,
       age: val.age,
       displayName: val.displayName,
-      photoURL: val.photoURL
+      photoURL: val.photoURL,
+      summary: val.summary
     };
+
+    if(this.userForm.invalid){
+      this.userForm.markAsDirty();
+      return;
+    }
+
+    
 
     this._userService.updateUser(updatedUser)
       .then(() => {
         alert('User info updated');
+        this.user = updatedUser;
       })
       .catch((err) => {
         console.error(err);

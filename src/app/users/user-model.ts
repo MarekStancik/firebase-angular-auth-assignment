@@ -4,4 +4,5 @@ export interface UserModel {
     displayName? :string;
     photoURL?: string;
     age?: number;
+    summary?: string;
 }

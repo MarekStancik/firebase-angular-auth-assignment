@@ -9,7 +9,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { fireconfig } from 'src/environments/firebase';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeViewComponent } from './home/home-view/home-view.component';

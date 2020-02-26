@@ -31,6 +31,7 @@ export class DialogUserLoginComponent implements OnInit {
   closeSuccess(){
     this.isSignedIn = true;
     this.dialogRef.close(); 
+    debugger
     this.data.router.navigate(['/user/profile'])
   }
 

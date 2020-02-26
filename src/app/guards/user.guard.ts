@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { take, map, tap, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class UserGuard implements CanLoad,CanActivate {
     return this._auth.getCurrentUser() != null;
   }
 
-  canActivate(){
-    return this._auth.getCurrentUser() != null;
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      return this._auth.isLoggedIn();
   }
 }

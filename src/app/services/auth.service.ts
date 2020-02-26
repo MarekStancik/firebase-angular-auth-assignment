@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators'
+import { switchMap, first, map, tap } from 'rxjs/operators'
 import { UserModel } from '../users/user-model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -16,7 +16,7 @@ export class AuthService {
 
   user$: Observable<UserModel>;
 
-  private _currentUser: UserModel;
+  private _currentUser: UserModel = null;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -67,6 +67,10 @@ export class AuthService {
 
   signOut():Promise<void>{
     return this.afAuth.auth.signOut();
+  }
+
+  isLoggedIn(){
+    return this._currentUser !== null;
   }
 
   changePassword(password: string): Promise<void>{

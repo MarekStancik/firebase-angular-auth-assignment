@@ -1,0 +1,30 @@
+<h1>Change Password</h1>
+<div>
+    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+        <p>
+        <mat-form-field>
+            <mat-label for="oldPass">Old Password</mat-label>
+            <input matInput id="oldPass" name="oldPass" type="password" formControlName="oldPass">
+            <mat-error *ngIf="passwordForm.get('oldPass').invalid">{{getErrorFor('oldPass')}}</mat-error>
+        </mat-form-field>
+        </p>
+
+        <p>
+        <mat-form-field>
+            <mat-label for="newPass">New Password</mat-label>
+            <input matInput id="newPass" name="newPass" type="password" formControlName="newPass">
+            <mat-error *ngIf="passwordForm.get('newPass').invalid">{{getErrorFor('newPass')}}</mat-error>
+        </mat-form-field>
+        </p>
+
+        <p>
+        <mat-form-field>
+            <mat-label for="repeatNewPass">Repeat New Password</mat-label>
+            <input matInput id="repeatNewPass" name="repeatNewPass" type="password" formControlName="repeatNewPass"
+                [errorStateMatcher]="matcher">
+            <mat-error *ngIf="passwordForm.get('repeatNewPass').invalid">{{getErrorFor('repeatNewPass')}}</mat-error>
+        </mat-form-field>  
+        </p>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isValid()">Update</button>
+    </form> 
+</div>

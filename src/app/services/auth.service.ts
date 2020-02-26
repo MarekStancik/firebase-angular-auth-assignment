@@ -7,15 +7,18 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { resolve } from 'url';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  public static readonly MIN_PASS_LENGTH = 8;
+
   user$: Observable<UserModel>;
 
-  user: UserModel;
+  private _currentUser: UserModel;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -30,7 +33,16 @@ export class AuthService {
       })
     );
 
-    this.user$.subscribe(data => this.user = data);
+    this.user$.subscribe(data => this._currentUser = data);
+  }
+
+  getCurrentUser():UserModel{
+    return this._currentUser;
+  }
+
+  reauthenticate(pass: string){
+    var credential = firebase.auth.EmailAuthProvider.credential(this.getCurrentUser().email, pass);
+    return this.afAuth.auth.currentUser.reauthenticateWithCredential(credential);
   }
 
   async googleSignin(){
@@ -45,6 +57,10 @@ export class AuthService {
 
   signOut():Promise<void>{
     return this.afAuth.auth.signOut();
+  }
+
+  changePassword(password: string): Promise<void>{
+    return this.afAuth.auth.currentUser.updatePassword(password);
   }
 
   createUser(email: string,pass: string):Promise<auth.UserCredential>{

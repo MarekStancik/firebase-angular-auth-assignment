@@ -32,6 +32,11 @@
                         <textarea matInput formControlName="summary"></textarea>
                     </mat-form-field>
                 </form>
+
+                <button (click)="showPass = !showPass" class="link">Change Password</button>
+                <div *ngIf="showPass" class="raisedbox">
+                    <app-user-update-pass></app-user-update-pass>
+                </div>
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button [routerLink]="['/user/profile']">Back</button>

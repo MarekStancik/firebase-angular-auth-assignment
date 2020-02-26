@@ -36,6 +36,18 @@ export class AuthService {
     this.user$.subscribe(data => this._currentUser = data);
   }
 
+  resetPassword(email: string){
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  verifyPasswordResetCode(code: string){
+    return this.afAuth.auth.verifyPasswordResetCode(code);
+  }
+
+  confirmPasswordReset(code: string, password: string){
+    return this.afAuth.auth.confirmPasswordReset(code,password); 
+  }
+
   getCurrentUser():UserModel{
     return this._currentUser;
   }

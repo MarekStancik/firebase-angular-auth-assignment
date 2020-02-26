@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from '../user.service';
-import { UserModel } from '../user-model';
+import { UserService } from 'src/app/users/user.service';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/users/user-model';
 
 @Component({
-  selector: 'app-user-register',
-  templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class UserRegisterComponent implements OnInit {
-
+export class RegisterComponent implements OnInit {
   userForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -38,6 +36,7 @@ export class UserRegisterComponent implements OnInit {
     };
     this._userService.createUser(user,val.password)
       .then(()=> {
+        this._userService.updateUser(user);
         window.alert('Account has been created');
         this._router.navigate(['user/profile']);
       })
@@ -46,4 +45,5 @@ export class UserRegisterComponent implements OnInit {
         window.alert(error.message);
       });
   }
+
 }

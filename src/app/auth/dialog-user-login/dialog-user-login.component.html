@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+    <form (ngSubmit)="signIn()">
+        <mat-form-field style="width: 100%;">
+            <mat-label for="email">Email</mat-label>
+            <input matInput id="email" name="email" type="email" [(ngModel)]="email">
+        </mat-form-field>
+    
+        <mat-form-field style="width: 100%;">
+            <mat-label for="pass">Password</mat-label>
+            <input matInput id="pass" name="pass" type="password" [(ngModel)]="password">
+        </mat-form-field>
+        <mat-error *ngIf="error">
+            {{error}}
+        </mat-error>
+        <button mat-raised-button color="primary" type="submit" style="width: 100%;">Sign in</button>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button (click)="googleSignIn()" style="width: 100%;">Google sign in</button>
+    <br>
+    <button class="link clickable-text" style="width: 100%;" (click)="resetPassword()">Reset Password</button>
+</div>

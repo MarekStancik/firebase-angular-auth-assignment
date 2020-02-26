@@ -17,14 +17,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './services/auth.service';
 import { UserService } from './users/user.service';
-import { DialogUserLoginComponent } from './users/dialog-user-login/dialog-user-login.component';
+import { DialogUserLoginComponent } from './auth/dialog-user-login/dialog-user-login.component';
+import { UserGuard } from './guards/user.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeViewComponent,
-    DialogUserLoginComponent
+    DialogUserLoginComponent,
   ],
   imports: [
     FlexLayoutModule,
@@ -41,7 +42,7 @@ import { DialogUserLoginComponent } from './users/dialog-user-login/dialog-user-
   entryComponents: [
     DialogUserLoginComponent
   ],
-  providers: [AuthService,UserService],
+  providers: [AuthService,UserService,UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -3,6 +3,8 @@ import { UserModel } from '../user-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
+import { UserUpdatePassComponent } from '../user-update-pass/user-update-pass.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-user-edit',
@@ -10,6 +12,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
+
+  showPass: boolean = false;
 
   user: UserModel;
 
@@ -23,13 +27,20 @@ export class UserEditComponent implements OnInit {
     summary: new FormControl('')
   });
 
-  constructor(public auth: AuthService,private _userService: UserService) { 
+  constructor(public auth: AuthService,private _userService: UserService,public dialog: MatDialog) { 
       
-    this.setUpUser(this.auth.user);
+    this.setUpUser(this.auth.getCurrentUser());
     auth.user$.subscribe(data => this.setUpUser(data));
   }
 
   ngOnInit() {
+  }
+
+  showPassDialog(){
+    const dialogRef = this.dialog.open(UserUpdatePassComponent, {
+      width: '250px',
+      data: {auth: this.auth}
+    });  
   }
 
   getNameError():string{
@@ -54,7 +65,7 @@ export class UserEditComponent implements OnInit {
       this.userForm.patchValue(val);
     }
   }
-
+  
   save(){
 
     let val = this.userForm.value;   

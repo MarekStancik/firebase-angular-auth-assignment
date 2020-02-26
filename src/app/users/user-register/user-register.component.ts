@@ -17,7 +17,8 @@ export class UserRegisterComponent implements OnInit {
     password: new FormControl(''),
     repeatPassword: new FormControl(''),
     displayName: new FormControl(''),
-    photoURL: new FormControl('')
+    photoURL: new FormControl(''),
+    age: new FormControl('')
   });
 
 
@@ -32,7 +33,8 @@ export class UserRegisterComponent implements OnInit {
       email: val.email,
       uid: null,
       displayName: val.displayName,
-      photoURL: val.photoURL
+      photoURL: val.photoURL,
+      age: val.age
     };
     this._userService.createUser(user,val.password)
       .then(()=> {

@@ -3,4 +3,5 @@ export interface UserModel {
     email: string;
     displayName? :string;
     photoURL?: string;
+    age?: number;
 }

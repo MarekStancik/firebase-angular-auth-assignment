@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, first, map, tap } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators'
 import { UserModel } from '../users/user-model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';

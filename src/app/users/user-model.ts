@@ -5,4 +5,12 @@ export interface UserModel {
     photoURL?: string;
     age?: number;
     summary?: string;
+    role?: UserRole;
+    banned?: boolean;
+}
+
+export enum UserRole{
+    Admin = "admin",
+    User = "user",
+    Manager = "manager"
 }

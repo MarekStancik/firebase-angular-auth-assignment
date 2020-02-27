@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../user-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { UserUpdatePassComponent } from '../user-update-pass/user-update-pass.component';
 import { MatDialog } from '@angular/material';
 

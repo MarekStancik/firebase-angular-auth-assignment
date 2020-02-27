@@ -6,7 +6,8 @@ import { HomeViewComponent } from './home/home-view/home-view.component';
 const routes: Routes = [
   { path: '', component: HomeViewComponent},
   { path: 'user', loadChildren: './users/users.module#UsersModule' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthModule'}
+  { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}
 ];
 
 @NgModule({

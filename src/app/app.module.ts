@@ -16,7 +16,7 @@ import { HomeViewComponent } from './home/home-view/home-view.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './services/auth.service';
-import { UserService } from './users/user.service';
+import { UserService } from './services/user.service';
 import { DialogUserLoginComponent } from './auth/dialog-user-login/dialog-user-login.component';
 import { UserGuard } from './guards/user.guard';
 

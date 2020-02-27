@@ -1,0 +1,28 @@
+<!--<mat-selection-list #usersL>
+    <mat-list-option >
+        {{user.displayName}}
+    </mat-list-option>
+</mat-selection-list>
+
+<p>
+    Selected : {{usersL.selectedOptions.selected.length}}
+</p>-->
+
+<mat-list fxLayout="col">
+    <mat-list-item *ngFor="let user of users | async" >
+        <h1 matLine><strong>Name:</strong> {{user.displayName}}</h1>
+        <h1 matLine><strong>Email:</strong> {{user.email}}</h1>
+        <div matLine>
+            <mat-form-field>
+                <mat-label >Role</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let role of getRoles()" [value]="user.role">
+                        {{role}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-flat-button color="warn" (click)="deleteUser(user)">Delete</button>
+            <mat-checkbox  #checkbox (change)='setupBan(user,checkbox.checked)' [checked]="user.banned">Banned</mat-checkbox>
+        </div>
+    </mat-list-item>
+</mat-list>

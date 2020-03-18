@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeViewComponent } from './home/home-view/home-view.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeViewComponent},
-  { path: 'user', loadChildren: './users/users.module#UsersModule' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
+  { path: 'regions', loadChildren: () => import('./regions/regions.module').then(m => m.RegionsModule) },
+  { path: 'user', loadChildren:() => import('./users/users.module').then(m=>m.UsersModule) },
+  { path: 'auth', loadChildren:() => import('./auth/auth.module').then(m=>m.AuthModule)},
+  { path: 'admin', loadChildren:() => import('./admin/admin.module').then(m=>m.AdminModule)}
 ];
 
 @NgModule({

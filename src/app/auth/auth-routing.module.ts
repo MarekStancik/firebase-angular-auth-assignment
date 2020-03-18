@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import { UserGuard } from '../guards/user.guard';
-import { NegateUserLoginGuard } from '../guards/negate-user-login.guard';
+import { UserGuard } from '../users/shared/user.guard';
+import { NegateUserLoginGuard } from '../users/shared/negate-user-login.guard';
 
 
 const routes: Routes = [

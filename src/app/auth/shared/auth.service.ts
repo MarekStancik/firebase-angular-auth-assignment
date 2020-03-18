@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap, take, map, tap } from 'rxjs/operators'
-import { UserModel } from '../users/user-model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import * as firebase from 'firebase';
+import { UserModel } from 'src/app/users/shared/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user){
-          return this.afs.collection('users').doc(user.uid).valueChanges();
+          return this.afs.collection<UserModel>('users').doc(user.uid).valueChanges();
         }else{
           return of(null);
         }

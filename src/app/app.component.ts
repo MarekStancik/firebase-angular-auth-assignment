@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './auth/shared/auth.service';
 
 @Component({
   selector: 'app-root',

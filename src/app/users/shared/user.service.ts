@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UserModel } from '../users/user-model';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../auth/shared/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { UserModel } from './user.model';
 
 @Injectable({
   providedIn: 'root'

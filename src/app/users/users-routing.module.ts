@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserGuard } from '../guards/user.guard';
+import { UserGuard } from './shared/user.guard';
 
 
 const routes: Routes = [

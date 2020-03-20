@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { MatListModule } from '@angular/material';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared.module';
 import { RegionsViewComponent } from './regions-view/regions-view.component';
 import { RegionsModule } from '../regions/regions.module';
 

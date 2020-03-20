@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared.module';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserUpdatePassComponent } from './user-update-pass/user-update-pass.component';
 

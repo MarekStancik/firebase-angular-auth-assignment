@@ -8,7 +8,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatDialogModule } from '@angular/material';
+import { MatToolbarModule, MatDialogModule, MatNativeDateModule } from '@angular/material';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
@@ -33,6 +33,7 @@ import { UserGuard } from './users/shared/user.guard';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatDialogModule,
+    MatNativeDateModule,
     SharedModule.forRoot()
   ],
   entryComponents: [

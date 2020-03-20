@@ -1,0 +1,23 @@
+<form [formGroup]="regionForm" (ngSubmit)="save()">
+        
+    <mat-form-field>
+        <mat-label for="id">Id</mat-label>
+        <input matInput id="id" name="id" type="number" formControlName="id">
+        <mat-error *ngIf="regionForm.get('id').invalid">{{getIdError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label for="name">Name</mat-label>
+        <input matInput id="name" name="name" type="text" formControlName="name">
+        <mat-error *ngIf="regionForm.get('name').invalid">{{getNameError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label for="maxh">Max Hunters</mat-label>
+        <input matInput id="maxh" name="maxh" type="number" formControlName="maxHunters">
+        <mat-error *ngIf="regionForm.get('maxHunters').invalid">Max hunters has to be 0 or more</mat-error>
+    </mat-form-field>
+
+    <input type="submit" value="Save">
+    <button mat-button (click)="closed.emit()">Cancel</button>
+</form>

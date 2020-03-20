@@ -1,7 +1,18 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
-</mat-form-field>
+<div fxLayout="row">
+  <mat-form-field style="margin-right: 20px;">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Brezno">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+
 
 <div>
   <table mat-table [dataSource]="dataSource" matSort>
@@ -37,7 +48,7 @@
     </ng-container>
  
    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
  </table>
  
  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>  

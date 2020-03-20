@@ -28,10 +28,20 @@ export class RegionsViewComponent implements OnInit {
     this.regService.addRegion(region);
   }
 
+  delete(region: Region){
+    if(region){
+      this.regService.delete(region)
+        .then(() =>{ 
+          this.region = null
+        })
+        .catch(err => alert(err.message));
+    }
+  }
+
   onSelect(region: Region){
     //Note it is important that form open is after settign region
     this.region = {
-      id: region.id,
+      uid: region.uid,
       name: region.name,
       maxHunters: region.maxHunters
     };

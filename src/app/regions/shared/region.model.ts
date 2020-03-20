@@ -1,5 +1,5 @@
 export interface Region {
-    id: number;
+    uid: string;
     name: string;
     hunterCount?: number;
     animalCount?: number;

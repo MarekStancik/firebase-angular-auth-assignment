@@ -11,7 +11,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class RegionListComponent implements OnInit {
   @Output() selected = new EventEmitter<Region>();
   
-  displayedColumns: string[] = ['id', 'name', 'hunterCount', 'animalCount',"maxHunters"];
+  displayedColumns: string[] = [ 'name', 'hunterCount', 'animalCount',"maxHunters"];
   dataSource : MatTableDataSource<Region> = new MatTableDataSource<Region>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

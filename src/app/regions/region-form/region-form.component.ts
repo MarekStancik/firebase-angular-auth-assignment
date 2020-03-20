@@ -13,7 +13,6 @@ export class RegionFormComponent implements OnInit {
   set value(reg: Region){
     if(reg != null){
       this.regionForm.patchValue({
-        id: reg.id,
         maxHunters: reg.maxHunters,
         name: reg.name
       });
@@ -31,7 +30,6 @@ export class RegionFormComponent implements OnInit {
   valueChange = new EventEmitter<Region>();
 
   regionForm : FormGroup = new FormGroup({
-    id: new FormControl(1,Validators.required),
     name: new FormControl('',Validators.required),
     maxHunters: new FormControl(0,Validators.min(0))
   });
@@ -43,7 +41,6 @@ export class RegionFormComponent implements OnInit {
 
   clearForm(){
     this.regionForm.patchValue({
-      id: 1,
       name: '',
       maxHunters: 0
     });
@@ -52,7 +49,7 @@ export class RegionFormComponent implements OnInit {
   save(){
     const val = this.regionForm.value;
     const region : Region = {
-      id: val.id,
+      uid: this.value != null ? this.value.uid : '',
       maxHunters: val.maxHunters,
       name: val.name
     }
@@ -66,14 +63,6 @@ export class RegionFormComponent implements OnInit {
     }
 
     return control.hasError('minlength') ? 'Minimum 4 characters' : '';
-  }
-
-  getIdError():string{
-    let control = this.regionForm.get('id');
-    if (control.hasError('required')) {
-      return 'Id is required';
-    }
-    return '';
   }
 
 }

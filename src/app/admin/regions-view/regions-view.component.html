@@ -2,7 +2,7 @@
     <div fxFlex fxFlexOffset="15" style="margin-right: 10%;">
         <app-region-list (selected)="onSelect($event)"></app-region-list>
         <button mat-raised-button (click)="addRegion()">Add</button>
-        <button mat-raised-button color="warn" (click)="deleteRegion()">Delete</button>
+        <button mat-raised-button color="warn" (click)="delete(region)">Delete</button>
     </div>
     <div *ngIf="formOpened" fxFlex="20">
         <app-region-form [value]="region" (valueChange)="save($event)" (closed)="formOpened = false"></app-region-form>

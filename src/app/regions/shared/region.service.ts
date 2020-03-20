@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Region } from './region.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 const collectionName = 'regions';
 
@@ -14,11 +15,25 @@ export class RegionService {
   constructor(private afs: AngularFirestore) { }
 
   getRegions() : Observable<Region[]>{
-    return this.afs.collection<Region>(collectionName).valueChanges();
-    //return of(ELEMENT_DATA);
+    return this.afs.collection<Region>(collectionName)
+      .snapshotChanges()
+      .pipe(
+        map(val => {
+          return val.map(a => {
+            var region: Region;
+            region = a.payload.doc.data()
+            region.uid = a.payload.doc.id;
+            return region;
+          })
+        })
+      );
   }
 
   addRegion(region: Region){
     this.afs.collection<Region>(collectionName).add(region);
+  }
+
+  delete(region: Region):Promise<void>{
+    return this.afs.collection<Region>(collectionName).doc(region.uid).delete();
   }
 }

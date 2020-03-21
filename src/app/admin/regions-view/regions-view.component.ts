@@ -25,7 +25,9 @@ export class RegionsViewComponent implements OnInit {
   }
 
   save(region: Region){
-    this.regService.addRegion(region);
+    this.regService.addRegion(region)
+      .then(() => this.formOpened = false)
+      .catch(err => alert(err.message));
   }
 
   delete(region: Region){

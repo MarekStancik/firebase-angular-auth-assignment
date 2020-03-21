@@ -3,7 +3,7 @@
   <h3>Loading Regions...</h3>
 </div>
 
-<ng-template #loaded>
+<div [hidden]="!isLoaded()">
   <div fxLayout="row">
     <mat-form-field style="margin-right: 20px;">
       <mat-label>Filter</mat-label>
@@ -55,5 +55,5 @@
    
    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>  
   </div>
-</ng-template>
+</div>
 

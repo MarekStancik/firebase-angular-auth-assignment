@@ -29,8 +29,15 @@ export class RegionService {
       );
   }
 
-  addRegion(region: Region){
-    this.afs.collection<Region>(collectionName).add(region);
+  addRegion(region: Region): Promise<Region>{
+    return new Promise((resolve,reject) => {
+      this.afs.collection<Region>(collectionName).add(region)
+        .then(ref => {
+          region.uid = ref.id
+          resolve(region);
+        })
+        .catch(err => reject(err));
+    });
   }
 
   delete(region: Region):Promise<void>{

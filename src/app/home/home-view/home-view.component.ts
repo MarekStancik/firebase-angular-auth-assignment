@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/shared/auth.service';
+import { Region } from 'src/app/regions/shared/region.model';
 
 @Component({
   selector: 'app-home-view',
@@ -23,5 +24,9 @@ export class HomeViewComponent implements OnInit {
 
   getCheckOutColor(): string{
     return 'warn';
+  }
+
+  selected(region:Region){
+    
   }
 }

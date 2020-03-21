@@ -17,11 +17,18 @@ export class RegionListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  selectedRow: Region = null;
+
+  private isLoaded_ = false;
+
   constructor(private regionService: RegionService) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.regionService.getRegions()
-      .subscribe(data => this.dataSource.data = data);
+      .subscribe(data => {
+        this.dataSource.data = data;
+        this.isLoaded_ = true;
+      });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -35,8 +42,13 @@ export class RegionListComponent implements OnInit {
     }
   }
 
-  getRecord(row: any){
+  getRecord(row: Region){
+    this.selectedRow = row;
     this.selected.emit(row);
+  }
+
+  isLoaded():boolean{
+    return this.isLoaded_;
   }
 
 }

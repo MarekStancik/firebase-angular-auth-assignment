@@ -5,7 +5,10 @@
         <button mat-raised-button color="warn" (click)="delete(region)">Delete</button>
     </div>
     <div *ngIf="formOpened" fxFlex="20">
-        <app-region-form [value]="region" (valueChange)="save($event)" (closed)="formOpened = false"></app-region-form>
+        <button mat-icon-button color="warn" aria-label="close" (click)="formOpened = false" class="close-button">
+            <mat-icon>close</mat-icon>
+        </button>
+        <app-region-form [value]="region" (valueChange)="save($event)"></app-region-form>
     </div>
 </div>
 

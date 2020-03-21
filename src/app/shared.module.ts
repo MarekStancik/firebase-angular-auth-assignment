@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule, MatButtonModule, MatSelectModule, MatInputModule, MatProgressSpinnerModule, MatCheckboxModule,  } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatSelectModule, MatInputModule, MatProgressSpinnerModule, MatCheckboxModule, MatIconModule,  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    MatIconModule,
     RouterModule
   ]
 })

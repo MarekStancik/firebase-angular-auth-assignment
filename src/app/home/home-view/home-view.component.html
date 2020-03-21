@@ -1,7 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%; background-color: rgb(53, 117, 15);">
-    <div class="black-col">
-        <h1 style="text-align: center; color: white;">Welcome To Home of Hunters</h1>
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+    <div class="black-col" fxLayout="column" fxFlex="60" fxOffset="20">
+        <h1>Welcome To Home of Hunters</h1>
         
-        <app-region-list></app-region-list>
+        <app-region-list (selected)="selected($event)"></app-region-list>
+
+        <div *ngIf="isLogedIn()" fxLayout="row" class="button-row">
+            <button mat-raised-button [color]="getCheckInColor()">Check In</button>
+            <button mat-raised-button [color]="getCheckOutColor()">Check Out</button>
+        </div>
     </div>
 </div>

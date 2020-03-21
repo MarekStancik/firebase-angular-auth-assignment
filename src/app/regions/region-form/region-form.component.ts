@@ -24,9 +24,6 @@ export class RegionFormComponent implements OnInit {
   }
 
   @Output()
-  closed = new EventEmitter();
-
-  @Output()
   valueChange = new EventEmitter<Region>();
 
   regionForm : FormGroup = new FormGroup({

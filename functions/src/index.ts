@@ -3,9 +3,25 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
- // Start writing Firebase Functions
- // https://firebase.google.com/docs/functions/typescript
+//In case user is deleted from users collection
+//This method ensures that he is also deleted from auth
+exports.deleteUser = functions.firestore.document('users/{id}')
+    .onDelete((res, context) => {
+        admin.auth().deleteUser(context.params.id)
+        .then(() => console.log('delete user'))
+        .catch(err => console.error(err))
+    });
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
+//Block user implementation
+exports.blockUser = functions.firestore.document('users/{id}')
+    .onUpdate((change,context) => {
+        const id = context.params.id;
+
+        admin.auth().getUser(id)
+            .then( userRecord => {
+                admin.auth().updateUser(id,{disabled: !userRecord.disabled})
+                    .catch(() => console.log('Could not enable/disable user'));
+            })
+            .catch(()=> console.log('Couldnt retrieve user'));
+    });
+

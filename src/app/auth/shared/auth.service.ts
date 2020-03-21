@@ -34,6 +34,8 @@ export class AuthService {
     this.user$.subscribe(data => this._currentUser = data);
   }
 
+  //*********Password handling*******//
+
   resetPassword(email: string){
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
@@ -46,6 +48,37 @@ export class AuthService {
     return this.afAuth.auth.confirmPasswordReset(code,password); 
   }
 
+  changePassword(password: string): Promise<void>{
+    return this.afAuth.auth.currentUser.updatePassword(password);
+  }
+
+  //***********Create***********//
+
+  registerUser(email: string,pass: string):Promise<auth.UserCredential>{
+    return this.afAuth.auth.createUserWithEmailAndPassword(email,pass);
+  }
+
+  //Updates user data after creating profile
+  private updateUserData(user){
+    const userRef: AngularFirestoreDocument<UserModel>
+      = this.afs.doc(`users/${user.uid}`);
+    
+    const data : UserModel = {
+      uid: user.uid,
+      email: user.email,
+      roles: {
+        visitor: true
+      },
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    };
+
+    return userRef.set(data, {merge: true});
+  }
+
+  //***********Login***********//
+
+
   getCurrentUser():UserModel{
     return this._currentUser;
   }
@@ -55,10 +88,16 @@ export class AuthService {
     return this.afAuth.auth.currentUser.reauthenticateWithCredential(credential);
   }
 
-  async googleSignin(){
+  private oAuthLogin(provider): Promise<void>{
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        this.updateUserData(credential.user);
+      });
+  }
+
+  googleSignin(){
     const provider = new auth.GoogleAuthProvider();
-    const credentials = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credentials.user);
+    return this.oAuthLogin(provider);
   }
 
   signIn(email: string, pass: string):Promise<auth.UserCredential>{
@@ -73,25 +112,36 @@ export class AuthService {
     return this._currentUser !== null;
   }
 
-  changePassword(password: string): Promise<void>{
-    return this.afAuth.auth.currentUser.updatePassword(password);
+  //***********Authorization***********//
+
+  canCheckIn(user: UserModel){
+    const allowed = ['admin','hunter'];
+    return this.checkAuthorization(user,allowed);
   }
 
-  createUser(email: string,pass: string):Promise<auth.UserCredential>{
-    return this.afAuth.auth.createUserWithEmailAndPassword(email,pass);
+  canDeleteRegion(user: UserModel){
+    const allowed = ['admin'];
+    return this.checkAuthorization(user,allowed);
   }
 
-  private updateUserData(user){
-    const userRef: AngularFirestoreDocument<UserModel>
-      = this.afs.doc(`users/${user.uid}`);
-    
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
+  canCreateRegion(user: UserModel){
+    const allowed = ['admin'];
+    return this.checkAuthorization(user,allowed);
+  }
 
-    return userRef.set(data, {merge: true});
+  isAdmin(user: UserModel){
+    const allowed = ['admin'];
+    return this.checkAuthorization(user,allowed);
+  }
+
+  private checkAuthorization(user: UserModel,allowedRoles: string[]): boolean{
+    if(!user) return false;
+
+    for(const role of allowedRoles){
+      if(user.roles[role]){
+        return true;
+      }
+    }
+    return false;
   }
 }

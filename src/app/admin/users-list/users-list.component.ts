@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
   }
 
   getRoles(){
-    return Object.keys(UserRole);
+    return ['admin','hunter','visitor'];
   }
 
   deleteUser(user: UserModel){

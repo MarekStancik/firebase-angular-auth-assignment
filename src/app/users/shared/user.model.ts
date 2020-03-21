@@ -1,16 +1,16 @@
 export interface UserModel {
     uid: string;
     email: string;
+    roles: UserRole;
     displayName? :string;
     photoURL?: string;
     age?: number;
     summary?: string;
-    role?: UserRole;
     banned?: boolean;
 }
 
-export enum UserRole{
-    Admin = "admin",
-    User = "user",
-    Manager = "manager"
+export interface UserRole{
+    admin?: boolean;
+    hunter?: boolean;
+    visitor?: boolean;
 }

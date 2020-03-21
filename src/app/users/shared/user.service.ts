@@ -19,7 +19,7 @@ export class UserService {
 
   createUser(user: UserModel,pass: string):Promise<UserModel>{
     return new Promise((resolve,reject) => {
-      this._auth.createUser(user.email,pass)
+      this._auth.registerUser(user.email,pass)
       .then(data =>{
         user.uid = data.user.uid;
         this.updateUser(user)

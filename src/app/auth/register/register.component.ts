@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
     let user: UserModel = {
       email: val.email,
       uid: null,
+      roles: {visitor: true},
       displayName: val.displayName,
       photoURL: val.photoURL,
       age: val.age

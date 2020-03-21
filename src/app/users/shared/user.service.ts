@@ -9,9 +9,12 @@ import { UserModel } from './user.model';
 })
 export class UserService {
 
-  async deleteUser(user: UserModel) {
-    //it is imposible to delete him from auth without him logging in
-    return this.afs.collection('users').doc(user.uid).delete();
+  deleteUser(user: UserModel):Promise<void> {
+    if(this._auth.isAdmin(this._auth.getCurrentUser()))
+      return this.afs.collection('users').doc(user.id).delete();
+    
+    return new Promise<any>((reject) => reject({message: 'you are not authorized to do this action'}));
+      //Deleting from auth is taken care by firebase function
   }
 
   constructor(private _auth: AuthService,private afs: AngularFirestore) { 
@@ -21,7 +24,7 @@ export class UserService {
     return new Promise((resolve,reject) => {
       this._auth.registerUser(user.email,pass)
       .then(data =>{
-        user.uid = data.user.uid;
+        user.id = data.user.uid;
         this.updateUser(user)
           .then(() => resolve(user))
           .catch(error => reject(error));
@@ -31,10 +34,14 @@ export class UserService {
   }
 
   updateUser(user: UserModel):Promise<void>{
-    return this.afs.collection('users').doc(user.uid).set(user);
+    return this.afs.collection('users').doc(user.id).set(user);
   }
 
   getAllUsers():Observable<any[]>{
     return this.afs.collection('users').valueChanges();
+  }
+
+  ban(user: UserModel){
+    
   }
 }

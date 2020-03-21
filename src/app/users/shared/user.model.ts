@@ -1,5 +1,5 @@
 export interface UserModel {
-    uid: string;
+    id: string;
     email: string;
     roles: UserRole;
     displayName? :string;

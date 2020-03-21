@@ -72,7 +72,7 @@ export class UserEditComponent implements OnInit {
 
     let updatedUser: UserModel = {
       email: this.user.email,
-      uid: this.user.uid,
+      id: this.user.id,
       roles: this.user.roles,
       age: val.age,
       displayName: val.displayName,

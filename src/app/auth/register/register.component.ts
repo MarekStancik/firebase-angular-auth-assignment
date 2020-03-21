@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     const val = this.userForm.value;
     let user: UserModel = {
       email: val.email,
-      uid: null,
+      id: null,
       roles: {visitor: true},
       displayName: val.displayName,
       photoURL: val.photoURL,

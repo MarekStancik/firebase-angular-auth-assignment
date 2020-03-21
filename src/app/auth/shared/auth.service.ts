@@ -64,7 +64,7 @@ export class AuthService {
       = this.afs.doc(`users/${user.uid}`);
     
     const data : UserModel = {
-      uid: user.uid,
+      id: user.uid,
       email: user.email,
       roles: {
         visitor: true

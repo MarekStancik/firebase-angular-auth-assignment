@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="space-around center">
+    <div fxFlex fxFlexOffset="15" style="margin-right: 10%;">
+        <app-user-list (selected)="onSelect($event)"></app-user-list>
+        
+        <div *ngIf="user">
+            <button mat-raised-button *ngIf="user.baned; else notBaned"
+                (click)="ban(user)">
+                Ban
+            </button>
+
+            <ng-template #notBaned>
+                <button mat-raised-button (click)="unban(user)">
+                    UnBan
+                </button>
+            </ng-template>
+
+            <button mat-raised-button color="warn" (click)="delete(user)">Delete</button>
+        </div>
+    </div>
+</div>

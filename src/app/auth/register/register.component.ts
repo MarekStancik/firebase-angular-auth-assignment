@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { UserService } from 'src/app/users/user.service';
+import { UserService } from 'src/app/users/shared/user.service';
 import { Router } from '@angular/router';
-import { UserModel } from 'src/app/users/user-model';
+import { UserModel } from 'src/app/users/shared/user.model';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,9 @@ export class RegisterComponent implements OnInit {
     const val = this.userForm.value;
     let user: UserModel = {
       email: val.email,
-      uid: null,
+      id: null,
+      banned: false,
+      roles: {visitor: true},
       displayName: val.displayName,
       photoURL: val.photoURL,
       age: val.age

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/shared/auth.service';
+import { Region } from 'src/app/regions/shared/region.model';
 
 @Component({
   selector: 'app-home-view',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private as: AuthService) { }
 
   ngOnInit() {
   }
 
+  isLogedIn(): boolean{
+    return this.as.isLoggedIn();
+  }
+
+  getCheckInColor(): string{
+    return 'accent';
+  }
+
+  getCheckOutColor(): string{
+    return 'warn';
+  }
+
+  selected(region:Region){
+    
+  }
 }

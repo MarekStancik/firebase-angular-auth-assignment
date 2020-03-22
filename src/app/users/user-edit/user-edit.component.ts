@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from '../user-model';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/shared/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../shared/user.service';
 import { UserUpdatePassComponent } from '../user-update-pass/user-update-pass.component';
 import { MatDialog } from '@angular/material';
+import { UserModel } from '../shared/user.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -72,7 +72,9 @@ export class UserEditComponent implements OnInit {
 
     let updatedUser: UserModel = {
       email: this.user.email,
-      uid: this.user.uid,
+      id: this.user.id,
+      roles: this.user.roles,
+      banned: this.user.banned,
       age: val.age,
       displayName: val.displayName,
       photoURL: val.photoURL,

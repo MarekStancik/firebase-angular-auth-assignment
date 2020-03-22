@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import { UserGuard } from '../guards/user.guard';
+import { UserGuard } from '../users/shared/user.guard';
+import { NegateUserLoginGuard } from '../users/shared/negate-user-login.guard';
 
 
 const routes: Routes = [
@@ -15,12 +16,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [!UserGuard]
+    canActivate: [NegateUserLoginGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [!UserGuard]
+    canActivate: [NegateUserLoginGuard ]
   },
   {
     path: 'userMgmt',

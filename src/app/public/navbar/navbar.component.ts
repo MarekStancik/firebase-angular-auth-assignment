@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/shared/auth.service';
 import { MatDialog } from '@angular/material';
 import { DialogUserLoginComponent } from 'src/app/auth/dialog-user-login/dialog-user-login.component';
 import { Router } from '@angular/router';

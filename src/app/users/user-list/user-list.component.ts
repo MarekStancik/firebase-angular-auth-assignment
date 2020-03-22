@@ -11,7 +11,7 @@ import { UserModel } from '../shared/user.model';
 export class UserListComponent implements OnInit {
   @Output() selected = new EventEmitter<UserModel>();
   
-  displayedColumns: string[] = [ 'name', 'email', 'phone',"role"];
+  displayedColumns: string[] = [ 'name', 'email', 'phone','role','banned'];
   dataSource : MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

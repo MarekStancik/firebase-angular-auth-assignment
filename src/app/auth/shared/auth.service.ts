@@ -58,12 +58,12 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email,pass);
   }
 
-  //Updates user data after creating profile
-  private updateUserData(user){
-    const userRef: AngularFirestoreDocument<UserModel>
+  //Updates user data after oAuth sign in
+  private updateUserData(user: firebase.User){
+    const userRef: AngularFirestoreDocument<any>
       = this.afs.doc(`users/${user.uid}`);
-    
-    const data : UserModel = {
+
+    const data  = {
       id: user.uid,
       email: user.email,
       roles: {
@@ -113,6 +113,7 @@ export class AuthService {
   }
 
   //***********Authorization***********//
+
 
   canCheckIn(user: UserModel){
     const allowed = ['admin','hunter'];

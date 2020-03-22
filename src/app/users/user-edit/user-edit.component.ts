@@ -74,6 +74,7 @@ export class UserEditComponent implements OnInit {
       email: this.user.email,
       id: this.user.id,
       roles: this.user.roles,
+      banned: this.user.banned,
       age: val.age,
       displayName: val.displayName,
       photoURL: val.photoURL,

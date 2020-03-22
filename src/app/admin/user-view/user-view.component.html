@@ -4,17 +4,18 @@
         
         <div *ngIf="user">
             <button mat-raised-button *ngIf="user.baned; else notBaned"
-                (click)="ban(user)">
-                Ban
+                (click)="unban(user)">
+                Enable
             </button>
 
             <ng-template #notBaned>
-                <button mat-raised-button (click)="unban(user)">
-                    UnBan
+                <button mat-raised-button (click)="ban(user)">
+                    Disable
                 </button>
             </ng-template>
 
             <button mat-raised-button color="warn" (click)="delete(user)">Delete</button>
+            <button mat-raised-button (click)="resetPass(user)">Reset Password</button>
         </div>
     </div>
 </div>

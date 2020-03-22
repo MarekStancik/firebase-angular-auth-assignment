@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/users/shared/user.model';
 import { UserService } from 'src/app/users/shared/user.service';
+import { AuthService } from 'src/app/auth/shared/auth.service';
 
 @Component({
   selector: 'app-user-view',
@@ -11,7 +12,7 @@ export class UserViewComponent implements OnInit {
 
   user: UserModel;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -21,11 +22,15 @@ export class UserViewComponent implements OnInit {
   }
 
   ban(user: UserModel){
-    
+    this.userService.setBan(user,true);
   }
 
   unban(user: UserModel){
+    this.userService.setBan(user,false);
+  }
 
+  resetPassword(user: UserModel){
+    this.auth.resetPassword(user.email);
   }
 
   delete(user: UserModel){

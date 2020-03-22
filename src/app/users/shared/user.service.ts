@@ -41,7 +41,10 @@ export class UserService {
     return this.afs.collection('users').valueChanges();
   }
 
-  ban(user: UserModel){
-    
+  setBan(user: UserModel,ban: boolean){
+    if(this._auth.isAdmin(this._auth.getCurrentUser())){
+      user.banned = ban;
+      this.updateUser(user);
+    }
   }
 }

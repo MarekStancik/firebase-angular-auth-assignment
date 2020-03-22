@@ -13,15 +13,23 @@ exports.deleteUser = functions.firestore.document('users/{id}')
     });
 
 //Block user implementation
-exports.blockUser = functions.firestore.document('users/{id}')
+exports.banUser = functions.firestore.document('users/{id}')
     .onUpdate((change,context) => {
         const id = context.params.id;
 
-        admin.auth().getUser(id)
+        const before = change.before.data();
+        const after = change.after.data();
+
+        const hasChangedBan = (before != undefined && after != undefined && before.banned != after.banned)
+            || (after != undefined && before == undefined);
+        if(hasChangedBan){
+            admin.auth().getUser(id)
             .then( userRecord => {
-                admin.auth().updateUser(id,{disabled: !userRecord.disabled})
+                admin.auth().updateUser(id,{disabled: context.params.banned})
                     .catch(() => console.log('Could not enable/disable user'));
             })
             .catch(()=> console.log('Couldnt retrieve user'));
+        }
+        
     });
 

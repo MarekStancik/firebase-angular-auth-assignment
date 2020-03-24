@@ -1,7 +1,10 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { DependencyFactory } from './depencency-factory';
 
 admin.initializeApp();
+
+const difa: DependencyFactory = new DependencyFactory();
 
 //In case user is deleted from users collection
 //This method ensures that he is also deleted from auth

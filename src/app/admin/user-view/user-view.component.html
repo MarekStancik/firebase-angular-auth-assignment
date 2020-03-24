@@ -1,3 +1,4 @@
+<app-admin-nav></app-admin-nav>
 <div fxLayout="row" fxLayoutAlign="space-around center">
     <div fxFlex fxFlexOffset="15" style="margin-right: 10%;">
         <app-user-list (selected)="onSelect($event)"></app-user-list>
@@ -16,6 +17,15 @@
 
             <button mat-raised-button color="warn" (click)="delete(user)">Delete</button>
             <button mat-raised-button (click)="resetPass(user)">Reset Password</button>
+
+            <mat-form-field>
+                <mat-label>Role</mat-label>
+                <mat-select [value]="getRoleForUser(user)" (selectionChange)="updateRole($event.value)">
+                  <mat-option *ngFor="let role of getRoles()" [value]="role">
+                    {{role}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
     </div>
 </div>

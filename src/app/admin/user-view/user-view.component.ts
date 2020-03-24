@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from 'src/app/users/shared/user.model';
+import { UserModel, UserRole } from 'src/app/users/shared/user.model';
 import { UserService } from 'src/app/users/shared/user.service';
 import { AuthService } from 'src/app/auth/shared/auth.service';
 
@@ -35,6 +35,32 @@ export class UserViewComponent implements OnInit {
 
   delete(user: UserModel){
     this.userService.deleteUser(user)
+      .then(() => this.user = null)
       .catch(err => alert(err.message));
+  }
+
+  updateRole(role : string){
+    //To deny admin removing himself as admin
+    if(this.auth.isAdmin(this.user) && this.user === this.auth.getCurrentUser())
+      return;
+    
+    console.log(role);
+    
+    this.user.roles = { };
+    this.user.roles[role] = true;
+
+    this.userService.updateUser(this.user);
+  }
+
+  getRoleForUser(user: UserModel): string{
+    for(const role of this.getRoles()){
+      if(user.roles[role] == true)
+        return role;
+    }
+    return '';
+  }
+
+  getRoles():string[]{
+    return ['admin','hunter','visitor'];
   }
 }

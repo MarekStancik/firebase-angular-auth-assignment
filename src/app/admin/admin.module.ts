@@ -8,10 +8,11 @@ import { RegionsViewComponent } from './regions-view/regions-view.component';
 import { RegionsModule } from '../regions/regions.module';
 import { UsersModule } from '../users/users.module';
 import { UserViewComponent } from './user-view/user-view.component';
+import { NavComponent } from './nav/nav.component';
 
 
 @NgModule({
-  declarations: [UserViewComponent, RegionsViewComponent, UserViewComponent],
+  declarations: [UserViewComponent, RegionsViewComponent, UserViewComponent, NavComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

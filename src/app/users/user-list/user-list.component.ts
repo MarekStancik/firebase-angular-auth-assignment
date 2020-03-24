@@ -47,6 +47,16 @@ export class UserListComponent implements OnInit {
     this.selected.emit(row);
   }
 
+  getRoleForUser(user: UserModel): string{
+    if(user.roles.admin)
+      return 'admin';
+    if(user.roles.hunter)
+      return 'hunter';
+    if(user.roles.visitor)
+      return 'visitor';
+    return '';
+  }
+
   isLoaded():boolean{
     return this.isLoaded_;
   }

@@ -1,4 +1,7 @@
+import { ProductModel } from "../products/shared/product.model";
+
 export interface OrderRepository{
-    addProduct(after: import("../products/shared/product.model").ProductModel);
+    updateName(uid: string, name: string): Promise<any>;
+    addProduct(after: ProductModel): Promise<any>;
 
 }

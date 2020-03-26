@@ -4,15 +4,15 @@ import { StockRepository } from "../stocks/stock.repository";
 import { OrderRepository } from "../orders/order.repository";
 
 export class ProductService{
-    productUpdated(id: any, before: ProductModel, after: ProductModel): Promise<any> {
+    async productUpdated(id: any, before: ProductModel, after: ProductModel): Promise<any> {
         this.stockRepo.changeCount(after,after.timesPurchased - before.timesPurchased);
         if(before.timesPurchased < after.timesPurchased){ //bought
             return this.orderRepo.addProduct(after);
         }  
-        else if(before.name != after.name){
-            return Promise.resolve();
+        else if(before.name != after.name){ //Update everywhere
+            await this.orderRepo.updateName(after.uid,after.name)
+            await this.stockRepo.updateName(after.uid,after.name)
         }
-        else
             return Promise.resolve();
     }
 

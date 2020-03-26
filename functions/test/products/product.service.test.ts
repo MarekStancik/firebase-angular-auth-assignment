@@ -23,8 +23,14 @@ describe('ProductService',() => {
         orderRepo = new Mock<OrderRepository>()
             .setup(repo => repo.addProduct(product))
             .returns(Promise.resolve())
+        orderRepo 
+            .setup(repo => repo.updateName("product","name"))
+            .returns(Promise.resolve());
         stockRepo = new Mock<StockRepository>()
             .setup(repo => repo.addProduct(product,5))
+            .returns(Promise.resolve());
+        stockRepo 
+            .setup(repo => repo.updateName("product","name"))
             .returns(Promise.resolve());
         stockRepo
             .setup(repo => repo.changeCount(product,1))
@@ -66,6 +72,19 @@ describe('ProductService',() => {
         stockRepo.verify(repo => repo.changeCount(after,1),Times.Once());
     })
 
+    it('Returning product changes its count in stocks', async() =>{
+        const before = product;
+        const after : ProductModel = {
+            name: product.name,
+            price: product.price,
+            timesPurchased: product.timesPurchased - 1,
+            uid: product.uid,
+            url: product.url
+        }
+        await productService.productUpdated(product.uid,before,after);
+        stockRepo.verify(repo => repo.changeCount(after,-1),Times.Once());
+    })
+
     it('Buying product adds it to orders', async() =>{
         const before = product;
         const after : ProductModel = {
@@ -77,6 +96,20 @@ describe('ProductService',() => {
         }
         await productService.productUpdated(product.uid,before,after);
         orderRepo.verify(repo => repo.addProduct(after),Times.Once());
+    })
+
+    it('Changing product name changes it everywhere', async() =>{
+        const before = product;
+        const after : ProductModel = {
+            name: product.name + ' karol',
+            price: product.price,
+            timesPurchased: product.timesPurchased,
+            uid: product.uid,
+            url: product.url
+        }
+        await productService.productUpdated(product.uid,before,after);
+        orderRepo.verify(repo => repo.updateName(product.uid,after.name),Times.Once());
+        stockRepo.verify(repo => repo.updateName(product.uid,after.name),Times.Once());
     })
 
 });

@@ -4,6 +4,12 @@ import admin = require("firebase-admin");
 
 export class StockRepositoryFirebase implements StockRepository{
 
+    updateName(uid: string, name: string): Promise<any> {
+        return this.db()
+        .doc(`${this.stockPath}/${uid}`)
+        .set({name: name},{merge: true});
+    }
+
     changeCount(after: ProductModel, arg1: number): Promise<any> {
         return this.db().doc(`${this.stockPath}/${after.uid}`).get()
             .then(ref => {

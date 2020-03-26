@@ -25,6 +25,7 @@ import { StockService } from "./stocks/stock.service";
 import { StockControllerFirebase } from "./stocks/stock.controller.firebase";
 
 export class DependencyFactory{
+
     getRegionController(): RegionController{
         const repo: RegionRepository = new RegionRepositoryFirebase();
         const service: RegionService = new RegionService(repo);
@@ -38,8 +39,9 @@ export class DependencyFactory{
     }
 
     getProductController(): ProductController{
-        const repo: ProductRepository = new ProductRepositoryFirebase();
-        const service: ProductService = new ProductService(repo);
+        const prodRepo: ProductRepository = new ProductRepositoryFirebase();
+        const stockRepo: StockRepository = new StockRepositoryFirebase();
+        const service: ProductService = new ProductService(prodRepo,stockRepo);
         return new ProductControllerFirebase(service);
     }
 

@@ -21,5 +21,5 @@ exports.banUser = functions.firestore.document('users/{id}')
 
 exports.productCreated = functions.firestore.document('products/{id}')
     .onCreate((snap,ctx) => {
-        
+        return difa.getProductController().onCreated(snap,ctx);
     });

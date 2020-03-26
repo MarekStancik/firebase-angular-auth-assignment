@@ -41,7 +41,8 @@ export class DependencyFactory{
     getProductController(): ProductController{
         const prodRepo: ProductRepository = new ProductRepositoryFirebase();
         const stockRepo: StockRepository = new StockRepositoryFirebase();
-        const service: ProductService = new ProductService(prodRepo,stockRepo);
+        const orderRepo: OrderRepository = new OrderRepositoryFirebase();
+        const service: ProductService = new ProductService(prodRepo,stockRepo,orderRepo);
         return new ProductControllerFirebase(service);
     }
 

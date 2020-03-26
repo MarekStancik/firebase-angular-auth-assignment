@@ -3,10 +3,12 @@ import { IMock,Mock, Times } from 'moq.ts';
 import { ProductService } from "../../src/products/product.service";
 import { ProductModel } from "../../src/products/shared/product.model";
 import { StockRepository } from "../../src/stocks/stock.repository";
+import { OrderRepository } from "../../src/orders/order.repository";
 
 describe('ProductService',() => {
     let productRepo: IMock<ProductRepository>;
     let stockRepo: IMock<StockRepository>;
+    let orderRepo: IMock<OrderRepository>;
     let productService: ProductService;
     let product: ProductModel = { 
         url: 'a',
@@ -18,10 +20,16 @@ describe('ProductService',() => {
 
     beforeEach(() => {
         productRepo = new Mock<ProductRepository>()
+        orderRepo = new Mock<OrderRepository>()
+            .setup(repo => repo.addProduct(product))
+            .returns(Promise.resolve())
         stockRepo = new Mock<StockRepository>()
             .setup(repo => repo.addProduct(product,5))
             .returns(Promise.resolve());
-        productService = new ProductService(productRepo.object(),stockRepo.object());
+        stockRepo
+            .setup(repo => repo.changeCount(product,1))
+            .returns(Promise.resolve())
+        productService = new ProductService(productRepo.object(),stockRepo.object(),orderRepo.object());
     });
 
     it('Creating undefined product rejects',async () =>{
@@ -45,6 +53,30 @@ describe('ProductService',() => {
         stockRepo.verify(repo => repo.addProduct(product,5),Times.Once());
     })
 
+    it('Buying product changes its count in stocks', async() =>{
+        const before = product;
+        const after : ProductModel = {
+            name: product.name,
+            price: product.price,
+            timesPurchased: product.timesPurchased + 1,
+            uid: product.uid,
+            url: product.url
+        }
+        await productService.productUpdated(product.uid,before,after);
+        stockRepo.verify(repo => repo.changeCount(after,1),Times.Once());
+    })
 
+    it('Buying product adds it to orders', async() =>{
+        const before = product;
+        const after : ProductModel = {
+            name: product.name,
+            price: product.price,
+            timesPurchased: product.timesPurchased + 1,
+            uid: product.uid,
+            url: product.url
+        }
+        await productService.productUpdated(product.uid,before,after);
+        orderRepo.verify(repo => repo.addProduct(after),Times.Once());
+    })
 
 });

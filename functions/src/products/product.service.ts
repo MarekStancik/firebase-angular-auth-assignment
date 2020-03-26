@@ -1,9 +1,22 @@
 import { ProductRepository } from "./product.repository";
 import { ProductModel } from "./shared/product.model";
 import { StockRepository } from "../stocks/stock.repository";
+import { OrderRepository } from "../orders/order.repository";
 
 export class ProductService{
-    constructor(private productRepo: ProductRepository,private stockRepo: StockRepository){      
+    productUpdated(id: any, before: ProductModel, after: ProductModel): Promise<any> {
+        this.stockRepo.changeCount(after,after.timesPurchased - before.timesPurchased);
+        if(before.timesPurchased < after.timesPurchased){ //bought
+            return this.orderRepo.addProduct(after);
+        }  
+        else if(before.name != after.name){
+            return Promise.resolve();
+        }
+        else
+            return Promise.resolve();
+    }
+
+    constructor(private productRepo: ProductRepository,private stockRepo: StockRepository,private orderRepo: OrderRepository){      
         
     }
 

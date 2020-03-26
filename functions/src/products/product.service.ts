@@ -5,11 +5,11 @@ import { OrderRepository } from "../orders/order.repository";
 
 export class ProductService{
     async productUpdated(id: any, before: ProductModel, after: ProductModel): Promise<any> {
-        this.stockRepo.changeCount(after,after.timesPurchased - before.timesPurchased);
+        await this.stockRepo.changeCount(after,after.timesPurchased - before.timesPurchased);
         if(before.timesPurchased < after.timesPurchased){ //bought
             return this.orderRepo.addProduct(after);
         }  
-        else if(before.name != after.name){ //Update everywhere
+        else if(before.name !== after.name){ //Update everywhere
             await this.orderRepo.updateName(after.uid,after.name)
             await this.stockRepo.updateName(after.uid,after.name)
         }
@@ -20,12 +20,12 @@ export class ProductService{
         
     }
 
-    productCreated(prod: ProductModel) : Promise<any>{
+    async productCreated(prod: ProductModel) : Promise<any>{
         if(prod === null || prod === undefined)
             return Promise.reject("Provided product is not of type ProductModel");
             console.log(this.productRepo);
 
-        this.stockRepo.addProduct(prod,5);
+        await this.stockRepo.addProduct(prod,5);
         return Promise.resolve(prod);
     }
 }

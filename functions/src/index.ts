@@ -18,3 +18,8 @@ exports.banUser = functions.firestore.document('users/{id}')
         return difa.getUserController().userUpdated(change,context);
     });
 
+
+exports.productCreated = functions.firestore.document('products/{id}')
+    .onCreate((snap,ctx) => {
+        
+    });

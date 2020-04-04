@@ -24,8 +24,3 @@ exports.productCreated = functions.firestore.document('products/{id}')
         return difa.getProductController().onCreated(snap,ctx);
     });
 
-
-exports.productUpdated = functions.firestore.document('products/{id}')
-    .onUpdate((change,ctx) => {
-        return difa.getProductController().onUpdated(change,ctx);
-    });

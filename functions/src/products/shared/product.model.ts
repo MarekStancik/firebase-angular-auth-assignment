@@ -3,5 +3,4 @@ export interface ProductModel{
     price: number;
     url: string;
     name: string;
-    timesPurchased: number;
 }

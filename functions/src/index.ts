@@ -24,3 +24,8 @@ exports.productCreated = functions.firestore.document('products/{id}')
         return difa.getProductController().onCreated(snap,ctx);
     });
 
+exports.addOrderLowerStock = functions.firestore
+    .document('orders/{id}')
+    .onCreate((snap,ctx) => {
+        return difa.getOrderController().addOrder(snap,ctx);
+    });

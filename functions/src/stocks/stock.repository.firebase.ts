@@ -4,9 +4,11 @@ import admin = require("firebase-admin");
 import { OrderlineModel } from "../orders/shared/orderline.model";
 
 export class StockRepositoryFirebase implements StockRepository{
+    
     lowerStock(product: ProductModel, amount: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
+
     lowerStocks(orderLines: OrderlineModel[]): Promise<void> {
         throw new Error("Method not implemented.");
     }

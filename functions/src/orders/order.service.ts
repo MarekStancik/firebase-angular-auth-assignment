@@ -12,14 +12,17 @@ export class OrderService{
     async addOrder(order: OrderModel): Promise<OrderModel>{
         if(!order.orderLines || order.orderLines.length < 1) {
             throw new TypeError('You need orderlines to execute a order');
-          }
+        }
 
-          if(order.orderLines.length === 1) {
+        if(order.orderLines.length === 1) {
             await this.stockRepository.lowerStock(order.orderLines[0].product, order.orderLines[0].amount);
-          }
-          else {
+        }
+        else {
             await this.stockRepository.lowerStocks(order.orderLines);
-          }
-          return Promise.resolve(order);
+        }
+
+        await this.orderRepository.addOrder(order);
+
+        return Promise.resolve(order);
     }
 }

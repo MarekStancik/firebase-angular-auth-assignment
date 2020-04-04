@@ -1,20 +1,13 @@
 import { OrderRepository } from "./order.repository";
-import { ProductModel } from "../products/shared/product.model";
 import admin = require("firebase-admin");
+import { OrderModel } from "./shared/order.model";
 
 export class OrderRepositoryFirebase implements OrderRepository{
+    addOrder(order: OrderModel): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
 
     path = 'orders';
-
-    updateName(uid: string, name: string): Promise<any> {
-        return this.db()
-        .doc(`${this.path}/${uid}`)
-        .set({name: name},{merge: true});
-    }
-    
-    addProduct(after:ProductModel) : Promise<any> {
-        return this.db().collection(this.path).add(after);
-    }
 
     db(): FirebaseFirestore.Firestore {
         return admin.firestore();

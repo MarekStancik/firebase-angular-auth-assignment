@@ -1,27 +1,16 @@
 import { StockRepository } from "./stock.repository";
 import { ProductModel } from "../products/shared/product.model";
 import admin = require("firebase-admin");
+import { OrderlineModel } from "../orders/shared/orderline.model";
 
 export class StockRepositoryFirebase implements StockRepository{
-
-    updateName(uid: string, name: string): Promise<any> {
-        return this.db()
-        .doc(`${this.stockPath}/${uid}`)
-        .set({name: name},{merge: true});
+    lowerStock(product: ProductModel, amount: number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    lowerStocks(orderLines: OrderlineModel[]): Promise<void> {
+        throw new Error("Method not implemented.");
     }
 
-    changeCount(after: ProductModel, arg1: number): Promise<any> {
-        return this.db().doc(`${this.stockPath}/${after.uid}`).get()
-            .then(ref => {
-                const obj = ref.data();
-                if(obj){
-                    const cnt = obj.count + arg1;
-                    return this.db().doc(`${this.stockPath}/${after.uid}`)
-                        .set({count: cnt},{merge: true});
-                }
-                return Promise.reject();
-            });
-    }
 
     stockPath = "stocks"
 

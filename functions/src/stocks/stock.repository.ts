@@ -1,7 +1,10 @@
 import { ProductModel } from "../products/shared/product.model";
+import { OrderlineModel } from "../orders/shared/orderline.model";
 
 export interface StockRepository{
-    updateName(uid: string, name: string):Promise<any>;
-    changeCount(after: ProductModel, arg1: number): Promise<any>;
     addProduct(prod: ProductModel,count: number) : Promise<any>;
+
+    lowerStock(product: ProductModel, amount: number): Promise<void>;
+
+    lowerStocks(orderLines: OrderlineModel[]): Promise<void>;
 }

@@ -29,3 +29,9 @@ exports.addOrderLowerStock = functions.firestore
     .onCreate((snap,ctx) => {
         return difa.getOrderController().addOrder(snap,ctx);
     });
+
+
+exports.productUpdated = functions.firestore.document('products/{id}')
+    .onUpdate((change,ctx) => {
+        return difa.getProductController().onUpdated(change,ctx);
+    });

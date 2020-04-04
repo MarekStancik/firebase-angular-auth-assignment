@@ -45,6 +45,12 @@ export class StockRepositoryFirebase implements StockRepository{
         return Promise.resolve();
     }
 
+    updateName(uid: string, name: string): Promise<any> {
+        return this.db()
+        .doc(`${this.stockPath}/${uid}`)
+        .set({name: name},{merge: true});
+    }
+
     addProduct(prod: ProductModel,count: number): Promise<any> {
         return this.db()
         .doc(`${this.stockPath}/${prod.uid}`)

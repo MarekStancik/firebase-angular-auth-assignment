@@ -4,14 +4,15 @@ import { StockRepository } from "../stocks/stock.repository";
 
 export class OrderService{
     constructor(private orderRepository: OrderRepository, private stockRepository: StockRepository) {
-        console.log(this.orderRepository);
-        console.log(this.stockRepository);
+        if(this.stockRepository === undefined || this.orderRepository === undefined
+            || this.stockRepository === null || this.orderRepository === null)
+            throw Error("Order service needs order and stock Repository to be created");
       }
     
 
     async addOrder(order: OrderModel): Promise<OrderModel>{
         if(!order.orderLines || order.orderLines.length < 1) {
-            throw new TypeError('You need orderlines to execute a order');
+            throw new RangeError('At least 1 orderline is needed to add order');
         }
 
         if(order.orderLines.length === 1) {

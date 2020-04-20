@@ -2,21 +2,23 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Title</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>URL</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let product of products | async">
-            <td>{{ product.id }}</td>
             <td>{{ product.name }}</td>
+            <td>{{ product.price }} </td>
+            <td>{{ product.url }} </td>
             <td>
                 <button (click)="editProduct(product)">Edit</button>
             </td>
             <td>
-                <button (click)="deleteProduct(product.id)">Delete</button>
+                <button (click)="deleteProduct(product.uid)">Delete</button>
             </td>
         </tr>
         </tbody>

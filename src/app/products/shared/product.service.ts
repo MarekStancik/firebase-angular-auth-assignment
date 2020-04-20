@@ -31,6 +31,18 @@ export class ProductService {
 
   fetchProducts() {
     return this._afs.collection<ProductModel>(colName)
+      .get()
+      .pipe(
+        map(val => {
+          var arr: ProductModel[] = [];
+          val.forEach(doc => {
+            var product = doc.data() as ProductModel;
+            product.uid = doc.id;
+            arr.push(product)
+          })
+          return arr;
+        })
+      )/*
     .snapshotChanges()
     .pipe(
       map(val => {
@@ -41,6 +53,6 @@ export class ProductService {
           return product;
         })
       })
-    )
+    )*/
   }
 }

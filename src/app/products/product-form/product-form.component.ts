@@ -50,6 +50,7 @@ export class ProductFormComponent implements OnInit {
           name: ['', Validators.required],
           price: ['', Validators.required],
           url: [''],
+          uid: ['']
       });
   }
 

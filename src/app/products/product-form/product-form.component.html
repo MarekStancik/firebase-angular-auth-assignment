@@ -1,0 +1,27 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error *ngIf="productForm.controls['name'].invalid && (productForm.controls['name'].dirty || productForm.controls['name'].touched)">
+            Name is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+        <mat-error *ngIf="productForm.controls['price'].invalid && (productForm.controls['price'].dirty || productForm.controls['price'].touched)">
+            Price is required
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>URL</mat-label>
+        <input matInput type="text" formControlName="url">
+    </mat-form-field>
+    <button mat-button color="primary" type="submit"
+            [disabled]="productForm.pristine || productForm.invalid">
+            Submit
+    </button>
+    <button mat-button (click)="clearForm()">Clear</button>
+</form>

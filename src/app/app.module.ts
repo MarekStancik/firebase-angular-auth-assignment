@@ -16,6 +16,10 @@ import { UserService } from './users/shared/user.service';
 import { DialogUserLoginComponent } from './auth/dialog-user-login/dialog-user-login.component';
 import { UserGuard } from './users/shared/user.guard';
 import { PublicModule } from './public/public.module';
+import { NgxsModule } from '@ngxs/store';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+import { ProductState } from './products/shared/product.state';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,14 @@ import { PublicModule } from './public/public.module';
     MatDialogModule,
     MatNativeDateModule,
     PublicModule,
+    NgxsModule.forRoot([
+        ProductState
+      ], { 
+        developmentMode: !environment.production 
+      }
+    ),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     SharedModule.forRoot()
   ],
   entryComponents: [
